@@ -50,18 +50,18 @@ for (let i = 0; i < 36; i++) {
 
 
   // Función para buscar GIFs por término
-  window.onload = function() {
-    const apiKey = ''; // Reemplaza 'TuClaveDeAPI' con tu clave de API de Giphy
-    const trendingUrl = `https://api.giphy.com/v1/gifs/search?api_key=${LTb6bfRtbw8boTKLBN0la2rdyJjIQS8i}&limit=15`;
-  }
 
-
-  function searchgifs() {
-    const searchTerm = document.getElementById('searchterm').value;
-    const searchUrl = `api.giphy.com/v1/gifs/search?api_key=${LTb6bfRtbw8boTKLBN0la2rdyJjIQS8i}&q=${searchTerm}&limit=20`;
+  function searchGifs() {
+    const searchTerm = document.getElementById('searchterm').value; // Obtener el término de búsqueda del campo de entrada
+    const apiKey = 'LTb6bfRtbw8boTKLBN0la2rdyJjIQS8i'; // Tu clave de API de Giphy
+  
+    // Construir la URL de búsqueda con el término de búsqueda y la clave de API
+    const searchUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchTerm}&limit=20`;
+  
+    // Llamar a la función fetchGifs() para obtener y mostrar los GIFs
     fetchGifs(searchUrl);
   }
-
+  
   // Función para hacer la solicitud a la API y mostrar los GIFs
   function fetchGifs(url) {
     fetch(url)
@@ -101,3 +101,22 @@ searchForm.id = 'searchForm';
 document.body.appendChild(searchForm);
 
   
+// Funciones para manejar las páginas
+let currentPage = 0;
+
+function nextPage() {
+    currentPage++;
+    // Aquí puedes implementar la lógica para cargar la siguiente página de GIFs
+    // Por ejemplo, puedes llamar a una función para cargar los GIFs de la página actual
+    // y actualizar la grilla de GIFs
+}
+
+function previousPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        // Aquí puedes implementar la lógica para cargar la página anterior de GIFs
+        // Por ejemplo, puedes llamar a una función para cargar los GIFs de la página actual
+        // y actualizar la grilla de GIFs
+    }
+}
+

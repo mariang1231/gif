@@ -52,7 +52,7 @@ header {
     font-family: "Jua", sans-serif;
     margin: 0;
     padding: 0;
-    font-size: 100px; 
+    font-size: 750px; 
   }
   
   
@@ -106,20 +106,19 @@ footer {
   padding: 0px;
   text-align: center;
   width: 100%;
-  height: 80px;
-  position: fixed;
+  height: 800px;
   bottom: 0;
 }
 
 .bottoms-pag {
   justify-content: space-between;
   border-radius: 50px ;
-  padding: 200px;
+  padding: 250px;
   font-size: 80px;
 }
 
 
-.boton-anterior, .boton-siguiente {
+.previous-btn, .next-btn {
   height: 10px;
   width: 10%;
   margin-left: -100px;
@@ -128,19 +127,39 @@ footer {
   cursor: pointer;
 }
 
-.boton-anterior {
-  background-color: #BC4B51;
-  height: 150px;
-  width: 20%;
-  color: #f4f3f3;
+
+  .previous-btn {
+    height: 150px;
+    width:40%;
+    border-radius: 300px; /* Modifica el radio del borde según sea necesario */
+    font-size: 60px; /* Modifica el tamaño de la fuente según sea necesario */
+    /* Otros estilos que desees aplicar al botón "Previous Page" */
+    color: #f4f3f3;
+    background-color: #BC4B51;
+    border: 6px solid white;
+
+
+
 }
 
-.boton-siguiente {
+.next-btn {
   color: #BC4B51;
   height: 150px;
-  width: 20%;
+  width: 40%;
   border-radius: 300px;
   padding: -20px;
   font-size: 60px;
 }
 
+.icon  {
+  display: flex;
+  gap: 50px;
+  font-size: 40px; /* Tamaño del icono */
+  justify-content: center;
+}
+
+
+p{
+  font-size: 30px; 
+  margin-top: 30px;
+}
