@@ -17,13 +17,12 @@
     <header>
         <div class="favicon" ></div>
         <h1>GIFS</h1>
-    <main>
-        <form class="searchForm">
-            <input type="text" id="searchterm" placeholder="busca todos los Gifs">
-            <button class="custom-bottom" onclick="searchgifs()">Buscar</button>
-        </form>
+        <div class="searchForm">
+            <input id ="barradebusqueda" onkeypress="capturarenter(event);" type="text" class="busqueda" placeholder="busca todos los Gifs">
+            <button class="custom-bottom" onclick="searchGifs()">Buscar</button>
+        </div>
     </header>
-    <main id="grid-container" id="gifscontainer"></main>
+    <div id="grid-container" class="gifscontainer"></div>
     <footer>
               <div class="bottoms-pag">
               <input type="button">

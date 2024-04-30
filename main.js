@@ -1,122 +1,98 @@
-const apiKey = 'igVkGpDSozkTUTJbeSgShx2MKGwgbEOo'; // Reemplaza 'tu_clave_de_api' con tu propia clave de API
-const url = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}`;
+const apiKey = 'F3dnwVl21bRhqdMRd9iM8RzhMItTSa02';
+const limit = 15;  
 
-console.log(url); // Esta línea imprimirá la URL completa con la clave de API correctamente concatenada
+const apitendencia = 'https://api.giphy.com/v1/gifs/trending?api_key=' + apiKey + '&limit=' + limit;
 
-window.onload = function() {
-  const apiKey = 'igVkGpDSozkTUTJbeSgShx2MKGwgbEOo'; // Reemplaza 'TuClaveDeAPI' con tu clave de API de Giphy
-  const trendingUrl = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=15`;
-
-  fetch(trendingUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error al obtener los GIFs en tendencia:', response.status);
-      }
-      return response.json();
-    })
-    .then(data => {
-      displayGifs(data.data);
-    })
-    .catch(error => {
-      console.error('Error al obtener los GIFs en tendencia:', error);
-    });
-
-  function displayGifs(gifs) {
-    const gifsContainer = document.getElementById('grid-container');
-    gifsContainer.innerHTML = ''; // Clear existing GIFs
-
-    gifs.forEach(gif => {
-      const gifItem = document.createElement('div');
-      gifItem.classList.add('gif-item');
-
-      const gifImage = document.createElement('img');
-      gifImage.src = gif.images.fixed_height.url;
-      gifImage.alt = gif.title;
-
-      gifItem.appendChild(gifImage);
-      gifsContainer.appendChild(gifItem);
-    });
-  }
-};
+const apidebusqueda = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&limit=' + limit + '&q=';
 
 
-for (let i = 0; i < 36; i++) {
-  const emptyDiv = document.createElement('div');
-  emptyDiv.classList.add('grid-item');
-  document.getElementById('gifscontainer').appendChild(emptyDiv);
+function limpiargifs(){
+    const gifsbusqueda = document.getElementById("grid-container");
+  gifsbusqueda.innerHTML ="";
+
 }
 
+function buscargifs(){
+    const inputbusqueda = document.getElementById("barradebusqueda");
+    if (inputbusqueda.value == "" ) {
+        
+        alert("debes escribir un texto");
 
+    } else {
+        limpiargifs();
+                
+        fetch(apidebusqueda + inputbusqueda.value)
+        .then(response => response.json())
+        .then(datos => {
 
+            const gifContainer = document.getElementById("grid-container");
 
-  // Función para buscar GIFs por término
+            datos.data.forEach(item => {
+            const title = item.title;
+            const imageUrl = item.images.original.url;
+    
+                const gifDiv = document.createElement('div');
+                gifDiv.classList.add('gif');
 
-  function searchGifs() {
-    const searchTerm = document.getElementById('searchterm').value; // Obtener el término de búsqueda del campo de entrada
-    const apiKey = 'LTb6bfRtbw8boTKLBN0la2rdyJjIQS8i'; // Tu clave de API de Giphy
-  
-    // Construir la URL de búsqueda con el término de búsqueda y la clave de API
-    const searchUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchTerm}&limit=20`;
-  
-    // Llamar a la función fetchGifs() para obtener y mostrar los GIFs
-    fetchGifs(searchUrl);
-  }
-  
-  // Función para hacer la solicitud a la API y mostrar los GIFs
-  function fetchGifs(url) {
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error al obtener los GIFs:', response.status);
-        }
-        return response.json();
-      })
-      .then(data => {
-        displayGifs(data.data);
-      })
-      .catch(error => {
-        console.error('Error al obtener los GIFs:', error);
-      });
-  }
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = title;
 
-// Agregar un event listener para el evento submit del formulario
-document.addEventListener('DOMContentLoaded', function() {
-  const searchForm = document.getElementById('searchForm');
+                const p = document.createElement('p');
+                p.classList.add('parrafo');
+                p.textContent = title;
 
-  if (searchForm) {
-      searchForm.addEventListener('submit', function(event) {
-          event.preventDefault(); // Evitar que el formulario se envíe
+                gifDiv.appendChild(img);
+                gifDiv.appendChild(p);
 
-          // Llamar a la función de búsqueda de GIFs
-          searchGifs();
-      });
-  } else {
-      console.error("El formulario 'searchForm' no fue encontrado en el DOM.");
-  }
-});
+                gifContainer.appendChild(gifDiv);
+            });
 
-const searchForm = document.createElement('form');
-searchForm.id = 'searchForm';
-// Configurar otros atributos y contenido del formulario si es necesario
-document.body.appendChild(searchForm);
+        })
+        .catch(error => {
+            console.error('Error al realizar la solicitud:', error);
+        });
 
-  
-// Funciones para manejar las páginas
-let currentPage = 0;
-
-function nextPage() {
-    currentPage++;
-    // Aquí puedes implementar la lógica para cargar la siguiente página de GIFs
-    // Por ejemplo, puedes llamar a una función para cargar los GIFs de la página actual
-    // y actualizar la grilla de GIFs
-}
-
-function previousPage() {
-    if (currentPage > 0) {
-        currentPage--;
-        // Aquí puedes implementar la lógica para cargar la página anterior de GIFs
-        // Por ejemplo, puedes llamar a una función para cargar los GIFs de la página actual
-        // y actualizar la grilla de GIFs
     }
+}    
+
+function capturarenter(event){
+     if (event.key === 'Enter') {
+        buscargifs();
+        
+    }
+   
 }
 
+
+fetch(apitendencia)
+  .then(response => response.json())
+  .then(datos => {
+
+    const gifContainer = document.getElementById("grid-container");
+
+    datos.data.forEach(item => {
+      const title = item.title;
+      const imageUrl = item.images.original.url;
+
+        const gifDiv = document.createElement('div');
+        gifDiv.classList.add('gif');
+
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = title;
+
+        const p = document.createElement('p');
+        p.classList.add('parrafo');
+        p.textContent = title;
+
+        gifDiv.appendChild(img);
+        gifDiv.appendChild(p);
+
+        gifContainer.appendChild(gifDiv);
+    });
+
+  })
+  .catch(error => {
+    console.error('Error al realizar la solicitud:', error);
+  });
